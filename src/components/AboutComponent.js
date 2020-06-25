@@ -1,26 +1,30 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+import { Stagger } from 'react-animation-components';
 
 function About(props) {
 
 
     function RenderLeader({ leader }) {
         return (
-            <Media className="mt-5">
-                <Media left className="mr-5">
-                    <Media object src={leader.image} alt={leader.name} />
+            <Stagger in>
+                <Media className="mt-5">
+                    <Media left className="mr-5">
+                        <Media object src={baseUrl + leader.image} alt={leader.name} />
+                    </Media>
+                    <Media body>
+                        <Media heading>{leader.name}</Media>
+                        <p>{leader.designation}</p>
+                        <p>{leader.description}</p>
+                    </Media>
                 </Media>
-                <Media body>
-                    <Media heading>{leader.name}</Media>
-                    <p>{leader.designation}</p>
-                    <p>{leader.description}</p>
-                </Media>
-            </Media>
+            </Stagger>
         );
     }
 
-    const leaders = props.leaders.map( (leader) => {
+    const leaders = props.leaders.leaders.map( (leader) => {
         return (
             <RenderLeader leader={leader} key={leader.id} />
         );
